@@ -20,8 +20,8 @@ cmake -DBUILD_PANGOLIN_FFMPEG=OFF -DPYBIND11_PYTHON_VERSION=3.8 ..
 make -j8
 cd ..
 
-sed -i 's/assert len(lib_file) == 1 and len(install_dirs) >= 1/assert len(lib_file) == 1 and len(install_dir) >= 1/' setup.py
-sed -i 's|print('\''copying {} -> {}'\''\.format(lib_file[0], install_dirs[0]))|print('\''copying {} -> {}'\''\.format(lib_file[0], install_dir[0]))|' setup.py
+sed -i "s|install_dir = get_python_lib()|install_dirs = get_python_lib()|" setup.py
+awk '{gsub(/shutil\.copy\(lib_file\[0\], install_dir\)/, "shutil.copy(lib_file[0], install_dirs)")}1' setup.py > setup_temp.py && mv setup_temp.py setup.py
 
 python setup.py install
 
