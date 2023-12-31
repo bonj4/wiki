@@ -27,6 +27,6 @@ cmake ..
 
 # Clean up (optional)
 cd ../..
-rm -rf pybind11
+# rm -rf pybind11
 
 echo "Pybind11 has been installed successfully."
